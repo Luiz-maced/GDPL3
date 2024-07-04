@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pdf.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <style>
+        .contador {
+            text-align: left;
+            margin-top: 50px;
+            display: flex; /* Adicionado para alinhar as divs lado a lado */
+            gap: 20px; /* Espaço entre as divs */
+        }
+        .contador-form {
+            flex: 1; /* Permitir que as divs compartilhem igualmente o espaço disponível */
+            padding: 10px 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .contador p {
+            font-size: 48px;
+            color: red;
+            margin: 0;
+            font-weight: bold;
+        }
+        .contador h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <h3>Configurações</h3>
+            </ul>
+        </nav>
+        <a href="{{ url_for('menu') }}">
+        <button>Menu</button>
+    </a>
+    </header>
+     <div class="container">
+        <main>
+            <div class="contador">
+                <div class="contador-form">
+                    <form action="/download_db" method="post" class="form-group">>
+                        <label for="security_key">Security Key:</label>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                      {% endwith %}
+                        <input type="password" id="security_key" name="security_key" required>
+                        <div class="form-group">
+                          <button type="submit" class="btn">Download Database</button>
+                        </div>
+                    </form>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

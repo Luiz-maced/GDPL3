@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pdf.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Alunos</title>
+</head>
+<body>
+    <header>
+        <div class="logo">GDPL - ACADEMIAS</div>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('menu') }}">Painel</a></li>
+                <li><a href="{{ url_for('adicionar_aluno') }}">Adicionar Alunos</a></li>
+                <li><a href="{{ url_for('adicionar_treino') }}">Treinos</a></li>
+                <li><a href="{{ url_for('buscar_e_gerar_pdf') }}">Fichas de treinos</a></li>
+                <li><a href="https://wa.me/5511946691016?text=Olá%2C%20gostaria%20de%20mais%20informações." target="_blank">Suporte</a></li>
+            </ul>
+        </aside>
+        <main>
+            <h1>Buscar Alunos</h1>
+            <div class="card">
+                <div class="card-header">
+                    <div class="text-header">Buscar</div>
+                </div>
+                <div class="card-body">
+                    <form action="{{ url_for('buscar_aluno') }}" method="POST">
+                        <div class="form-group">
+                            <label for="nome">Nome do Aluno:</label>
+                            <input required class="form-control" name="nome" id="nome" type="text" placeholder="Nome">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn" name="buscar_aluno" value="Buscar Aluno">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Listagem de Alunos -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="text-header">Lista de Alunos</div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for aluno in alunos %}
+                            <tr>
+                                <td>{{ aluno.nome }}</td>
+                                <td>{{ aluno.email }}</td>
+                                <td>{{ 'Ativo' if aluno.status_aluno == 0 else 'Inativo' }}</td>
+                                <td>
+                                    <form action="{{ url_for('alterar_status_aluno', id_aluno=aluno.id_aluno) }}" method="post">
+                                        <button type="submit" class="btn btn-sm {{ 'btn-danger' if aluno.status_aluno == 0 else 'btn-success' }}">
+                                            {{ 'Inativar' if aluno.status_aluno == 0 else 'Ativar' }}
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <!-- Adicione o conteúdo do rodapé aqui -->
+    </footer>
+</body>
+</html>

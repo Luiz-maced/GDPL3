@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/alerta_login.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email ou Chave invalidas!</title>
+</head>
+<body>
+
+
+<div class="card">
+    <div class="header">
+      <div class="image"><svg aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg></div>
+      <div class="content">
+         <span class="title">Dados inexistentes</span>
+         <p class="message">Realize o cadastro ou insira um E-mail ou Chave validos!</p>
+      </div>
+      <a href="{{ url_for('register') }}">
+       <div class="actions">
+         <button class="desactivate" type="button">Voltar</button>
+      </div>
+    </a>
+    </div>
+    </div>
+</body>
+</html>
+
+
+
+
+

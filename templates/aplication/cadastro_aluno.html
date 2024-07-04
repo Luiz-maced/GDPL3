@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro_aluno.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Aluno</title>
+</head>
+<body>
+    <header>
+        <div class="logo">GDPL - ACADEMIAS</div>
+        <nav>
+        </nav>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('menu') }}">Painel</a></li>
+                <li><a href="{{ url_for('adicionar_aluno') }}">Adicionar Alunos</a></li>
+                <li><a href="{{ url_for('adicionar_treino') }}">Treinos</a></li>
+                <li><a href="{{ url_for('buscar_e_gerar_pdf') }}">Fichas de treinos</a></li>
+                <li><a href="{{ url_for('procurar_aluno') }}">Buscar Alunos</a></li>
+                <li><a href="https://wa.me/5511946691016?text=Olá%2C%20gostaria%20de%20mais%20informações." target="_blank">Suporte</a></li>
+            </ul>
+        </aside>
+        <main>
+            <h1>Cadastro de Alunos</h1>
+            <form action="{{ url_for('adicionar_aluno') }}" method="POST">
+                <div class="form-group">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <br>
+                    <label for="nome">Nome do Aluno:</label>
+                    <input required class="form-control" name="nome" id="nome" type="text" placeholder="Nome">
+                </div>
+                <div class="form-group">
+                    <label for="nome">E-mail do Aluno:</label>
+                    <input required class="form-control" name="email" id="email" type="email" placeholder="email">
+                </div>
+                <div class="form-group">
+                    <label for="idade">Idade do Aluno:</label>
+                    <input required class="form-control" name="idade" id="idade" type="text" placeholder="Idade">
+                </div>
+                <div class="form-group">
+                    <label for="tp_pagto">Meio de Mensalidade:</label>
+                    <input required class="form-control" name="tp_pagto" id="tp_pagto" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="peso_atu">Peso Atual (kg):</label>
+                    <input class="form-control" name="peso_atu" id="peso_atu" type="number" step="0.01" placeholder="Peso Atual">
+                </div>
+                <div class="form-group">
+                    <label for="peso_alvo">Meta de Peso (kg):</label>
+                    <input class="form-control" name="peso_alvo" id="peso_alvo" type="number" step="0.01" placeholder="Meta de Peso">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn" value="Enviar">
+                </div>
+            </form>
+        </main>
+    </div>
+    <footer>
+        
+    </footer>
+</body>
+</html>

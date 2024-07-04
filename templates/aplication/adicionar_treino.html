@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro_treino.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Treino</title>
+    <style>
+        /* Estilos para a tabela */
+        .form-group table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .form-group th, .form-group td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">GDPL - ACADEMIAS</div>
+        <nav>
+        </nav>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('menu') }}">Painel</a></li>
+                <li><a href="{{ url_for('adicionar_aluno') }}">Adicionar Alunos</a></li>
+                <li><a href="{{ url_for('adicionar_treino') }}">Treinos</a></li>
+                <li><a href="{{ url_for('buscar_e_gerar_pdf') }}">Fichas de treinos</a></li>
+                <li><a href="{{ url_for('procurar_aluno') }}">Buscar Alunos</a></li>
+                <li><a href="https://wa.me/5511946691016?text=Olá%2C%20gostaria%20de%20mais%20informações." target="_blank">Suporte</a></li>
+            </ul>
+        </aside>
+        <main>
+            <h1>Bem-vindo ao Sistema de Gerenciamento de Treinos</h1>
+            <form id="treinoForm" action="{{ url_for('adicionar_treino') }}" method="POST">
+                <div class="form-group">
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <br>
+
+ 
+                    <label for="aluno_nome">Nome do Aluno:</label>
+                    <input required class="form-control" name="aluno_nome" id="aluno_nome" type="text" placeholder="Nome">
+                </div>
+                <div class="form-group">
+                    <label for="treino_tipo">Data da criação:</label>
+                    <input required class="form-control" name="dt_criacao" id="dt_criacao" type="date">
+                </div>
+                <div class="form-group">
+                    <label for="treino_tipo">Tipo de Treino:</label>
+                    <input required class="form-control" name="treino_tipo" id="treino_tipo" type="text" placeholder="abc, abcd...">
+                </div>
+                <div class="form-group">
+                    <label for="detalhes">Detalhes do Treino:</label>
+                    <textarea class="form-control" name="detalhes" id="detalhes" placeholder="Área livre para digitar o treino com detalhes"></textarea>
+                </div>
+                <div class="form-group">
+                    <table id="tabelaTreinos">
+                        <thead>
+                            <tr>
+                                <th>Exercício</th>
+                                <th>Séries x Repetições</th>
+                                <th>Descanso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" name="exercicio[]" required></td>
+                                <td><input type="text" name="series_repeticoes[]" placeholder="4x10" required></td>
+                                <td><input type="text" name="descanso[]" required></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <input type="button" class="btn" onclick="adicionarLinha()" value="Nova linha">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn" value="Cadastrar">
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        function adicionarLinha() {
+            var table = document.querySelector('#tabelaTreinos tbody');
+            var newRow = table.insertRow();
+            newRow.innerHTML = `
+                <td><input type="text" name="exercicio[]" required></td>
+                <td><input type="text" name="series_repeticoes[]" placeholder="4x10" required></td>
+                <td><input type="text" name="descanso[]" required></td>
+            `;
+        }
+    </script>
+</body>
+</html>

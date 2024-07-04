@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal</title>
+    <style>
+        .contador {
+            text-align: left;
+            margin-top: 50px;
+            display: flex; /* Adicionado para alinhar as divs lado a lado */
+            gap: 20px; /* Espaço entre as divs */
+        }
+        .contador-form {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .contador p {
+            font-size: 48px;
+            color: red;
+            margin: 0;
+            font-weight: bold;
+        }
+        .contador h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .button {
+            position: relative;
+            width: 2em;
+            height: 2em;
+            border: none;
+            background: rgba(180, 83, 107, 0.11);
+            border-radius: 5px;
+            transition: background 0.5s;
+          }
+          
+          .X {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1em;
+            height: 1.5px;
+            background-color: rgb(255, 255, 255);
+            transform: translateX(-50%) rotate(45deg);
+          }
+          
+          .Y {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1em;
+            height: 1.5px;
+            background-color: #fff;
+            transform: translateX(-50%) rotate(-45deg);
+          }
+          
+          .button:hover {
+            background-color: rgb(211, 21, 21);
+          }
+          
+          .button:active {
+            background-color: rgb(130, 0, 0);
+          }
+          
+          .button:hover > .close {
+            animation: close 0.2s forwards 0.25s;
+          }
+          
+          @keyframes close {
+            100% {
+              opacity: 1;
+            }
+          }
+          
+    </style>
+</head>
+<body>
+    <header>
+            <p>Sessão: {{ user_id }}</p>
+
+        <form action="{{ url_for('logout') }}" method="POST">
+            <button class="button">
+                <span class="X"></span>
+                <span class="Y"></span>
+              </button> 
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('menu') }}">Painel</a></li>
+                <li><a href="{{ url_for('adicionar_aluno') }}">Adicionar Alunos</a></li>
+                <li><a href="{{ url_for('adicionar_treino') }}">Treinos</a></li>
+                <li><a href="{{ url_for('buscar_e_gerar_pdf') }}">Fichas de treinos</a></li>
+                <li><a href="{{ url_for('procurar_aluno') }}">Buscar Alunos</a></li>
+                <li><a href="{{ url_for('ficha') }}">Ficha de Alunos</a></li>
+                <li><a href="{{ url_for('configuracoes') }}">Configurações</a></li>
+                <li><a href="https://wa.me/5511946691016?text=Olá%2C%20gostaria%20de%20mais%20informações." target="_blank">Suporte</a></li>
+            </ul>
+        </aside>
+        <main>
+            <div class="contador">
+                <div class="contador-form">
+                    <h2>Alunos Ativos:</h2>
+                    <div class="contador-form">
+                        <p>{{ total_cadastros_ativos }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contador">
+                <div class="contador-form">
+                    <h2>Alunos Inativos:</h2>
+                    <div class="contador-form">
+                        <p>{{ total_cadastros_inativos }}</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

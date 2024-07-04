@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de PR</title>
+    <style>
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-nav li {
+            margin: 0 15px;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 20px 0;
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <form action="{{ url_for('login') }}" method="POST" class="login-form">
+            <div class="form-container">
+                <div class="form">
+                    {% if session.get('logged_in') %}
+                    <script>
+                        document.getElementById('login').reset();
+                    </script>
+                    {% endif %}
+                    <span class="heading">GDPL</span>
+                    <input placeholder="Email" type="mail" class="input" name="email" required="">
+                    <input placeholder="Chave" id="auth_key" type="password" class="input" name="auth_key">
+                    <div class="button-container">
+                        <button class="send-button">Acessar</button>
+                    </div>
+                    <br>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="bottom-text">
+                    <p>Crie sua conta e receba a licença para usar o gerador de PR! <a href="{{ url_for('register') }}">Crie sua conta</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <p class="footer-text"><small>&copy; 2024 MacedStore. Todos os direitos reservados.</small></p>
+        <nav>
+            <ul class="footer-nav">
+                <li><a href="{{ url_for('termos') }}">Termos de Serviço</a></li>
+                <li><a href="{{ url_for('privacidade') }}">Política de Privacidade</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+</html>
